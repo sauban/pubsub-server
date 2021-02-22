@@ -1,0 +1,7 @@
+.env
+node_modules
+logs
+package-lock.json
+.nyc_output
+modules
+validation

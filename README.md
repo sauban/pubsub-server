@@ -5,7 +5,7 @@ A PubSub API using expressjs + typescript + docker.
 ## Features
 
 - Create subscription to topics.
-- Publish messages to topics subscribers.
+- Publish messages to topic subscribers.
 
 ## Technologies
 

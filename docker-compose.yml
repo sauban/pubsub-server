@@ -1,0 +1,22 @@
+
+version: "3.7"
+services:
+  pubsub_server:
+    container_name: pubsub_server
+    env_file: .env/
+    build: .
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "9009:9009"
+    links:
+      - pubsub_db
+    environment:
+      - NODE_ENV=development
+      - MONGODB_URL=mongodb://pubsub_db
+      - PORT=9009
+  pubsub_db:
+    container_name: pubsub_db
+    image: mongo
+    volumes:
+      - ./data/db:/data/db

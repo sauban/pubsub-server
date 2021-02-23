@@ -1,10 +1,11 @@
 # Boilerplate
 
-An API boilerplate using expressjs + typescript.
+A PubSub API using expressjs + typescript + docker.
 
 ## Features
 
-- TDB
+- Create subscription to topics.
+- Publish messages to topics subscribers.
 
 ## Technologies
 
@@ -12,6 +13,7 @@ An API boilerplate using expressjs + typescript.
 - Linting with [ESlint](https://github.com/eslint/eslint/).
 - Testing with [Mocha](https://mochajs.org/).
 - Testing with [Chai](https://www.chaijs.com/).
+- Containerize with [Docker](https://www.docker.com/).
 
 ## Getting started
 
@@ -23,108 +25,83 @@ cd express-typescript-boilerplate
 # Install dependencies
 yarn install
 
+# Copy .env.example file
+cp .env.example .env
+
 ```
 
 Set Environment Variables
 
 ```sh
-MONGODB_URL_DEV=<mongodburl>
+MONGODB_URL=<mongodburl>
 PORT=9094
 ```
 
 Then you can start the application:
 
 ```sh
-yarn dev
+docker-compose up --build
 ```
 
 This will launch the server [node](https://nodejs.org/en/) process on port 9094
 
-### Documentation
+### Subscribing
 
-To fetch records between a specified date, make a POST request to the endpoint below using the payload as seen below
+To create subscription for topics
 
 - API Endpoint
 
 ```sh
 
-  <BASE_URL>/health-check
+  <BASE_URL>/subscribe/:topic
 
 ```
 
 - Request Payload
 
 ```sh
-  POST {
-    "startDate": "2016-01-26", 
-    "endDate": "2016-02-26", 
-    "minCount": 2700, 
-    "maxCount": 3000
+  POST /subscribe/topic1
+  {
+    "url": "http://localhost:3000/test1"
   }
 ```
 
-This should return a list of records as shown below:
+This should return a response as shown below:
 
 ```sh
 {
-  "code": 0,
-  "msg": "success",
-  "records": [
-    {
-      "key": "tQeCgNPH",
-      "createdAt": "2016-02-24T08:17:05.921Z",
-      "totalCount": 2783
-    },
-    {
-      "key": "tQeCgNPH",
-      "createdAt": "2016-02-24T08:17:05.921Z",
-      "totalCount": 2783
-    },
-    {
-      "key": "wtSjVcpg",
-      "createdAt": "2016-02-22T11:13:43.165Z",
-      "totalCount": 2888
-    },
-    {
-      "key": "kkxEdhft",
-      "createdAt": "2016-02-19T06:35:39.409Z",
-      "totalCount": 2980
-    },
-    {
-      "key": "UYOsBBSI",
-      "createdAt": "2016-02-14T15:31:29.518Z",
-      "totalCount": 2948
-    },
-    {
-      "key": "fYwcJdst",
-      "createdAt": "2016-02-12T10:01:57.502Z",
-      "totalCount": 2790
-    },
-    {
-      "key": "fYwcJdst",
-      "createdAt": "2016-02-12T10:01:57.502Z",
-      "totalCount": 2790
-    },
-    {
-      "key": "bxoQiSKL",
-      "createdAt": "2016-01-29T01:59:53.494Z",
-      "totalCount": 2991
-    },
-    {
-      "key": "NOdGNUDn",
-      "createdAt": "2016-01-28T07:10:33.558Z",
-      "totalCount": 2813
-    }
-  ]
+  "url": "http://localhost:3000/test1"
 }
 ```
 
-Linting is set up using [ESlint](https://github.com/eslint/eslint/).
-It uses the rules as specificed in the .eslintrc.js file which can be found in the
-root directory.
+### Publishing
 
-Begin linting with the following command:
+To publish messages under topic to subscribers
+
+- API Endpoint
 
 ```sh
-yarn lint
+
+  <BASE_URL>/publish/:topic
+
+```
+
+- Request Payload
+
+```sh
+  POST /publish/topic1
+  {
+    "message": "Hello world"
+  }
+```
+
+This should return the payload as shown below:
+
+```sh
+{
+  "topic": "topic1",
+  "data": {
+    "message": "Hello world"
+  }
+}
 ```

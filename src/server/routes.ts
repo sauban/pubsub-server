@@ -11,7 +11,7 @@ router.get('/health-check', (_, res: express.Response) => {
   });
 });
 
-router.use(PubSubModule.path, PubSubModule.router);
+router.use(PubSubModule.router);
 
 router.use('*', pathNotFound);
 

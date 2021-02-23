@@ -6,15 +6,19 @@ const options = {
     handleExceptions: true,
     json: false,
     colorize: true,
+    format: winston.format.simple()
   },
 };
 
 const logger = winston.createLogger({
-  transports: [
-    new winston.transports.Console(options.console),
-  ],
+  format: winston.format.combine(winston.format.colorize(), winston.format.json()),
+  defaultMeta: { service: 'rest-api' },
   exitOnError: false, // do not exit on handled exceptions
 });
+
+if (process.env.NODE_ENV !== 'production') {
+  logger.add(new winston.transports.Console(options.console));
+}
 
 
 export class LoggerStream {

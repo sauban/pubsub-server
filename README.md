@@ -1,4 +1,4 @@
-# Boilerplate
+# PubSub Server
 
 A PubSub API using expressjs + typescript + docker.
 
@@ -19,8 +19,8 @@ A PubSub API using expressjs + typescript + docker.
 
 ```sh
 # Clone the project
-git clone https://github.com/sauban/express-typescript-boilerplate.git
-cd express-typescript-boilerplate
+git clone https://github.com/sauban/pubsub-server.git
+cd pubsub-server
 
 # Install dependencies
 yarn install

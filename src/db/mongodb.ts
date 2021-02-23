@@ -14,9 +14,9 @@ const boostrapMongoose = () => new Promise((resolve, reject) => {
     logger.log('info', 'Now connected to the database');
     resolve('success');
   });
-  mongoose.connection.on('error', () => {
-    logger.log('info', "Couldn't connect to the mongodb server");
-    reject();
+  mongoose.connection.on('error', (err) => {
+    logger.log('error', "Couldn't connect to the mongodb server");
+    reject(err);
   });
 });
 

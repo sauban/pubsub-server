@@ -13,14 +13,14 @@ export default function environmentConfig (): EnvironmentConfig {
   switch (process.env.NODE_ENV) {
     case 'production':
       envConfig = {
-        mongodb: process.env.MONGODB_URL_DEV,
+        mongodb: process.env.MONGODB_URL,
         port: process.env.PORT,
       };
       break;
 
     default:
       envConfig = {
-        mongodb: process.env.MONGODB_URL_DEV,
+        mongodb: process.env.MONGODB_URL,
         port: process.env.PORT,
       };
       break;

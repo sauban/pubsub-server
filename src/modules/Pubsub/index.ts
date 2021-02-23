@@ -3,6 +3,6 @@ import PubSubService from './pubsub.service';
 import PubSubModel from '../../db/models/pubsub';
 
 const PubSubRepository = new PubSubService(PubSubModel);
-const module = new PubSubController(PubSubRepository);
+const pubSubModule = new PubSubController(PubSubRepository);
 
-export default module;
+export default pubSubModule;

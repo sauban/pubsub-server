@@ -1,4 +1,5 @@
 import * as express from 'express';
+import PubSubService from '../../interfaces/pubsubService.interface';
 import HttpException from '../../exceptions/HttpException';
 import Controller from '../../interfaces/controller.interface';
 
@@ -7,27 +8,27 @@ class PubSubController implements Controller {
     public router = express.Router();
     private pubSub;
   
-    constructor(pubSubRepository: any) {
+    constructor(pubSubRepository: PubSubService) {
       this.initializeRoutes();
       this.pubSub = pubSubRepository;
     }
 
     private initializeRoutes() {
-        this.router.post(`/subcribe/:topic`, this.subscribeToTopic);
-        this.router.post(`/publish/:topic`, this.publishMessageToTopic);
+        this.router.post(`/subcribe/:topic`, this.subscribeToTopic.bind(this));
+        this.router.post(`/publish/:topic`, this.publishMessageToTopic.bind(this));
     }
 
-    subscribeToTopic = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
+    private async subscribeToTopic (request: express.Request, response: express.Response, next: express.NextFunction) {
         try {
             const { topic } = request.params;
-            const data = await this.pubSub.subscribeToTopic(topic, request.body);
+            const data = await this.pubSub.subscribe(topic, request.body);
             response.status(200).json(data);
         } catch (error) {
             next(new HttpException(400, error.message));
         }
     }
 
-    publishMessageToTopic = (request: express.Request, response: express.Response, next: express.NextFunction) => {
+    private async publishMessageToTopic (request: express.Request, response: express.Response, next: express.NextFunction) {
 
     }
     

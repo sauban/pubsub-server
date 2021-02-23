@@ -1,5 +1,5 @@
-import PubSubController from './controller';
-import PubSubService from './service';
+import PubSubController from './pubsub.controller';
+import PubSubService from './pubsub.service';
 import PubSubModel from '../../db/models/pubsub';
 
 const PubSubRepository = new PubSubService(PubSubModel);

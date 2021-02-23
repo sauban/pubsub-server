@@ -1,4 +1,4 @@
-import { IsObject, IsString } from 'class-validator';
+import { IsObject, IsOptional, IsString } from 'class-validator';
  
 export class SubcribePubSubDto {
     @IsString()
@@ -13,5 +13,6 @@ export class PublishPubSubDto {
     public topic: string;
 
     @IsObject()
+    @IsOptional()
     public data: object;
 }

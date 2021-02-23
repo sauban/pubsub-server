@@ -33,7 +33,8 @@ class PubSubController implements Controller {
 
     private publishMessageToTopic = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
         try {
-            const params: PublishPubSubDto = { ...request.params, ...request.body };
+            const { topic } = request.params;
+            const params: PublishPubSubDto = { topic, data: { ...request.body } };
             const data = await this.pubSub.publish(params);
             response.status(200).json(data);
         } catch (error) {

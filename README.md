@@ -40,7 +40,7 @@ PORT=9094
 Then you can start the application:
 
 ```sh
-docker-compose up --build
+npm start
 ```
 
 This will launch the server [node](https://nodejs.org/en/) process on port 9094
@@ -104,4 +104,21 @@ This should return the payload as shown below:
     "message": "Hello world"
   }
 }
+```
+
+### Use Shell script
+
+Run below to start the pubsub server and the subscriber server
+
+```sh
+  chmod +x ./start-server.sh
+  ./start-server.sh
+```
+
+Open a new terminal and run the following:
+
+```sh
+  curl -X POST -H "Content-Type: application/json" -d '{ "url": "http://localhost:4043/hello"}' http://localhost:9009/subscribe/topic1
+  curl -X POST -H "Content-Type: application/json" -d '{ "url": "http://localhost:4043/hello2"}' http://localhost:9009/subscribe/topic1
+  curl -X POST -H "Content-Type: application/json" -d '{"message": "hello"}' http://localhost:9009/publish/topic1
 ```
